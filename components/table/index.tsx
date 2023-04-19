@@ -7,14 +7,18 @@ import { useState, useEffect } from "react";
 
 function Table() {
   const [justMounted, setMounted] = useState(false);
-  const {
-    persons,
-    noOfRows,
-    isLoading,
-    handleChangeNoOfRow,
-    showClickedNumber,
-  } = usePerson();
+  const { persons, noOfRows, isLoading, handleChangeNoOfRow } = usePerson();
   const [newPersons, setNewPersons] = useState(persons);
+
+  const showClickedNumber = (index) => {
+    for (let i = 0; i < persons.length; i++) {
+      if (persons[i].id === index + 1) {
+        persons[i].isOpen = !persons[i].isOpen;
+        setNewPersons(persons);
+        setMounted(false);
+      }
+    }
+  };
 
   useEffect(() => {
     setMounted(true);

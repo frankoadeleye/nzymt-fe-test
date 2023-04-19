@@ -40,16 +40,6 @@ function usePerson() {
     return { ...object, isOpen: false };
   });
 
-  const showClickedNumber = (index) => {
-    for (let i = 0; i < persons.length; i++) {
-      if (persons[i].id === index + 1) {
-        persons[i].isOpen = !persons[i].isOpen;
-        setNewPersons(persons);
-        setMounted(false);
-      }
-    }
-  };
-
   return { persons, noOfRows, isLoading, handleChangeNoOfRow };
 }
 
