@@ -22,7 +22,8 @@ function Table() {
 
   useEffect(() => {
     setMounted(true);
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [noOfRows]);
 
   return (
     <table className={styles.table}>
