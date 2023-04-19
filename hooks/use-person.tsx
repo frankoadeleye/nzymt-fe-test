@@ -11,7 +11,7 @@ function usePerson() {
       setLoading(true);
       try {
         const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_URL}?_quantity=${noOfRows}`,
+          `https://fakerapi.it/api/v1/persons?_quantity=${noOfRows}`,
           { headers: {} }
         );
         setLoading(false);
