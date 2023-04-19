@@ -1,5 +1,6 @@
 import ImageWrapper from "common/image-wrapper";
 import moment from "moment";
+import acronym from "utils/acronym";
 
 type addressProps = {
   buildingNumber: string;
@@ -46,7 +47,11 @@ function TableRow({ data, onRowClick }: TableRowProps) {
       <tr onClick={onRowClick}>
         <td>{id}</td>
         <td>
-          <ImageWrapper src={image} alt={`${firstname}'s image`} />
+          {image ? (
+            <ImageWrapper src={image} alt={`${firstname}'s image`} />
+          ) : (
+            acronym(`${firstname} ${lastname}`)
+          )}
         </td>
         <td>{firstname}</td>
         <td>{lastname}</td>
