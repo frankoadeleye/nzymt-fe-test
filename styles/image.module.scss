@@ -1,0 +1,12 @@
+.image_cover {
+  width: 100px;
+
+  > div {
+    position: unset !important;
+  }
+
+  @media (max-width: 767px) {
+    position: absolute;
+    right: 30px;
+  }
+}
