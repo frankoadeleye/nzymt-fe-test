@@ -2,7 +2,8 @@ import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 
 function usePerson() {
-  const [personsOld, setPersons] = useState([]);
+  /*_____________________________ HANDLE GET PERSONS DATA _______________________________ */
+  const [persons, setPersons] = useState([]);
   const [noOfRows, setNoOfRows] = useState<string | number>(10);
   const [isLoading, setLoading] = useState(false);
 
@@ -11,7 +12,7 @@ function usePerson() {
       setLoading(true);
       try {
         const response = await axios.get(
-          `https://fakerapi.it/api/v1/persons?_quantity=${noOfRows}`,
+          `${process.env.NEXT_PUBLIC_API_URL}?_quantity=${noOfRows}`,
           { headers: {} }
         );
         setLoading(false);
@@ -36,11 +37,14 @@ function usePerson() {
     setNoOfRows(event.target.value);
   };
 
-  const persons = personsOld.map((object) => {
-    return { ...object, isOpen: false };
-  });
+  
 
-  return { persons, noOfRows, isLoading, handleChangeNoOfRow };
+  return {
+    persons,
+    noOfRows,
+    isLoading,
+    handleChangeNoOfRow,
+  };
 }
 
 export default usePerson;

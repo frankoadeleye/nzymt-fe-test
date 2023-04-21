@@ -3,27 +3,14 @@ import TableRow from "components/table-row";
 import SelectField from "components/select-field";
 import usePerson from "hooks/use-person";
 import { selectOptions, TbodyHData } from "utils/data";
-import { useState, useEffect } from "react";
+import React from "react";
+import TableItemDetails from "components/table-item-details";
+import useDetail from "hooks/use-detail";
 
 function Table() {
-  const [justMounted, setMounted] = useState(false);
   const { persons, noOfRows, isLoading, handleChangeNoOfRow } = usePerson();
-  const [newPersons, setNewPersons] = useState(persons);
-
-  const showClickedNumber = (index) => {
-    for (let i = 0; i < persons.length; i++) {
-      if (persons[i].id === index + 1) {
-        persons[i].isOpen = !persons[i].isOpen;
-        setNewPersons(persons);
-        setMounted(false);
-      }
-    }
-  };
-
-  useEffect(() => {
-    setMounted(true);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [noOfRows]);
+  const { idOfCurrentItem, isCurrentShowing, showDetailsofClickedItem } =
+    useDetail(persons);
 
   return (
     <table className={styles.table}>
@@ -48,25 +35,19 @@ function Table() {
               return <td key={index}>{item}</td>;
             })}
           </tr>
-          {justMounted
-            ? persons.map((person, index) => {
-                return (
-                  <TableRow
-                    onRowClick={() => showClickedNumber(index)}
-                    key={person.id}
-                    data={person}
-                  />
-                );
-              })
-            : newPersons.map((person, index) => {
-                return (
-                  <TableRow
-                    onRowClick={() => showClickedNumber(index)}
-                    key={person.id}
-                    data={person}
-                  />
-                );
-              })}
+          {persons.map((person, index) => {
+            return (
+              <React.Fragment key={person.id}>
+                <TableRow
+                  onRowClick={() => showDetailsofClickedItem(index)}
+                  data={person}
+                />
+                {person.id === idOfCurrentItem && isCurrentShowing && (
+                  <TableItemDetails data={person} />
+                )}
+              </React.Fragment>
+            );
+          })}
         </tbody>
       )}
     </table>
