@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-/*____________________ HANDLE HIDE AND SHOW OF EACH ITEM'S ADDRESS ON ITEM CLICK _____________ */
+/*____________________HANDLE HIDE AND SHOW OF EACH ITEM'S ADDRESS ON ITEM CLICK_____________ */
 
 function useDetail(array) {
   const [idOfCurrentItem, setidOfCurrentItem] = useState(1);
@@ -8,8 +8,8 @@ function useDetail(array) {
 
   const showDetailsofClickedItem = (index) => {
     for (let i = 0; i < array.length; i++) {
-      if (array[i].id === index + 1) {
-        console.log(array);
+      if (array[i].id === index) {
+        console.log("Here is what I am logging===>", array[i].id);
         setidOfCurrentItem(array[i].id);
         setCurrentShow(true);
       }
@@ -19,7 +19,7 @@ function useDetail(array) {
       }
     }
     /*hide the current item if it is opened*/
-    if (isCurrentShowing && index + 1 === idOfCurrentItem) {
+    if (isCurrentShowing && index === idOfCurrentItem) {
       setCurrentShow(false);
     }
   };

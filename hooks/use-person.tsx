@@ -6,6 +6,7 @@ function usePerson() {
   const [persons, setPersons] = useState([]);
   const [noOfRows, setNoOfRows] = useState<string | number>(10);
   const [isLoading, setLoading] = useState(false);
+  const [updatedPersons, setUpdatedPersons] = useState(persons)
 
   /*_______________________________  HANDLE SORTING BY FIRST NAME________________________*/
 

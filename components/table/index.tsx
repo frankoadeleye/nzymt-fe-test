@@ -54,7 +54,7 @@ function Table() {
             return (
               <React.Fragment key={person.id}>
                 <TableRow
-                  onRowClick={() => showDetailsofClickedItem(index)}
+                  onRowClick={() => showDetailsofClickedItem(person.id)}
                   data={person}
                 />
                 {person.id === idOfCurrentItem && isCurrentShowing && (
