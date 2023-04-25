@@ -2,13 +2,20 @@ import styles from "styles/table.module.scss";
 import TableRow from "components/table-row";
 import SelectField from "components/select-field";
 import usePerson from "hooks/use-person";
-import { selectOptions, TbodyHData } from "utils/data";
+import { selectOptions, FirstNameSortOptions } from "utils/data";
 import React from "react";
 import TableItemDetails from "components/table-item-details";
 import useDetail from "hooks/use-detail";
 
 function Table() {
-  const { persons, noOfRows, isLoading, handleChangeNoOfRow } = usePerson();
+  const {
+    persons,
+    noOfRows,
+    isLoading,
+    handleChangeNoOfRow,
+    firstNameDefault,
+    handleChangeOfFirstNameSort,
+  } = usePerson();
   const { idOfCurrentItem, isCurrentShowing, showDetailsofClickedItem } =
     useDetail(persons);
 
@@ -26,14 +33,22 @@ function Table() {
           </th>
         </tr>
       </thead>
-      {isLoading ? (
-        "Fetching Table Data..."
-      ) : (
+      {!isLoading && (
         <tbody>
           <tr>
-            {TbodyHData.map((item, index) => {
-              return <td key={index}>{item}</td>;
-            })}
+            <td>Id</td>
+            <td>Avatar</td>
+            <td>
+              <SelectField
+                options={FirstNameSortOptions}
+                selectedValue={firstNameDefault}
+                onChange={handleChangeOfFirstNameSort}
+              />
+            </td>
+            <td>Last Name</td>
+            <td>Gender</td>
+            <td>Age</td>
+            <td>Contact</td>
           </tr>
           {persons.map((person, index) => {
             return (

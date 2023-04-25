@@ -7,6 +7,10 @@ function usePerson() {
   const [noOfRows, setNoOfRows] = useState<string | number>(10);
   const [isLoading, setLoading] = useState(false);
 
+  /*_______________________________  HANDLE SORTING BY FIRST NAME________________________*/
+
+  const [firstNameDefault, setFirstNameDefault] = useState<string>("Ascending");
+
   const GetPersons = () => {
     const personCall = useCallback(async () => {
       setLoading(true);
@@ -33,17 +37,36 @@ function usePerson() {
     personCall();
   }, [personCall]);
 
+  useEffect(() => {
+    persons.sort((p1, p2) =>
+      p1.firstname < p2.firstname ? 1 : p1.firstname > p2.firstname ? -1 : 0
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [persons, firstNameDefault === "Descending"]);
+
   const handleChangeNoOfRow = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setNoOfRows(event.target.value);
   };
 
-  
+  if (!isLoading && firstNameDefault === "Ascending") {
+    persons.sort((p1, p2) =>
+      p1.firstname < p2.firstname ? -1 : p1.firstname > p2.firstname ? 1 : 0
+    );
+  }
+
+  const handleChangeOfFirstNameSort = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    setFirstNameDefault(event.target.value);
+  };
 
   return {
     persons,
     noOfRows,
     isLoading,
     handleChangeNoOfRow,
+    firstNameDefault,
+    handleChangeOfFirstNameSort,
   };
 }
 
