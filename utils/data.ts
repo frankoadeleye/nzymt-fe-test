@@ -7,10 +7,6 @@ const selectOptions = [
 
 const FirstNameSortOptions = [
   {
-    name: "First Name",
-    value: "Default",
-  },
-  {
     name: "First Name (Ascending)",
     value: "Ascending",
   },
