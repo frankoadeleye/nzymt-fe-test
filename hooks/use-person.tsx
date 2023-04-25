@@ -6,7 +6,6 @@ function usePerson() {
   const [persons, setPersons] = useState([]);
   const [noOfRows, setNoOfRows] = useState<string | number>(10);
   const [isLoading, setLoading] = useState(false);
-  const [updatedPersons, setUpdatedPersons] = useState(persons);
 
   /*_______________________________  HANDLE SORTING BY FIRST NAME________________________*/
 
@@ -47,6 +46,9 @@ function usePerson() {
 
   const handleChangeNoOfRow = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setNoOfRows(event.target.value);
+    if (!isLoading) {
+      setFirstNameDefault("Ascending");
+    }
   };
 
   if (!isLoading && firstNameDefault === "Ascending") {
